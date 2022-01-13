@@ -54,6 +54,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "rubocop"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
@@ -64,9 +65,13 @@ group :development do
   # gem "spring"
 end
 
+
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem 'database_cleaner-active_record'
+  gem "rspec-rails"
+  gem 'simplecov', require: false
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "webmock"
 end
