@@ -1,0 +1,3 @@
+
+class PostCodeCheckerService
+end
