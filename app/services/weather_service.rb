@@ -5,6 +5,15 @@ require 'faraday/net_http'
 class WeatherService
   def forecast(api_key, postcode)
     Faraday.default_adapter = :net_http
-    Faraday.get("#{WEATHER_URL}key=#{api_key}&q=#{postcode}")
+    response = Faraday.get("#{WEATHER_URL}key=#{api_key}&q=#{postcode}")
+    process_valid_response(response.body)
+  end
+
+  private
+
+  def process_valid_response(body)
+    response_hash = JSON.parse(body)
+    temp_as_float = response_hash.dig 'current', 'temp_c'
+    format('%.1f', temp_as_float)
   end
 end

@@ -11,5 +11,11 @@ RSpec.describe WeatherService do
       described_class.new.forecast('1234', 'RH2 8HR')
       expect(WebMock).to have_requested(:get, 'http://api.weatherapi.com/v1/current.json?key=1234&q=RH2 8HR')
     end
+
+    it 'returns the correct temperature' do
+      return_successful_weather('1234', 'RH2 8HR')
+      output = described_class.new.forecast('1234', 'RH2 8HR')
+      expect(output).to eq('5.0')
+    end
   end
 end
