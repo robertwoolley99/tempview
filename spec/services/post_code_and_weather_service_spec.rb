@@ -18,6 +18,7 @@ RSpec.describe PostCodeAndWeatherService do
 
   context 'when we have an issue with the postcode checker' do
     let(:pccs) { instance_double PostCodeCheckerService }
+    let(:ws) { instance_double WeatherService }
 
     before { ENV['WEATHER_API_KEY'] = 'weather_api_key' }
 
@@ -25,7 +26,15 @@ RSpec.describe PostCodeAndWeatherService do
       allow(PostCodeCheckerService).to receive(:new).and_return(pccs)
       allow(pccs).to receive(:check).and_return('NOT_VALID')
       pcaws = described_class.new.process('POSTCODE_NOT_EXISTING')
-      expect(pcaws).to eq('POSTCODE_NOT_VALID')
+      expect(pcaws).to eq('ERROR:POSTCODE_NOT_VALID')
+    end
+
+    it 'uses the unvalidated postcode if the postcode checker is down' do
+      allow(PostCodeCheckerService).to receive(:new).and_return(pccs)
+      allow(pccs).to receive(:check).and_return('NOT_CHECKED')
+      allow(WeatherService).to receive(:new).and_return(ws)
+      expect(ws).to receive(:forecast).with('weather_api_key', 'SW1H 0BD')
+      described_class.new.process('SW1H 0BD')
     end
   end
 end
