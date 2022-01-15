@@ -16,5 +16,15 @@ module MockApis
         { status: 404 }
       )
     end
+
+    def postcode_checker_site_is_down(id)
+      WebMock.stub_request(:get, "#{POSTCODECHECKURL}/#{id}").to_timeout
+    end
+
+    def postcode_checker_up_but_not_working_properly(id)
+      WebMock.stub_request(:get, "#{POSTCODECHECKURL}/#{id}").to_return(
+        { status: 500 }
+      )
+    end
   end
 end
