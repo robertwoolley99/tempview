@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe PostCodeAndWeatherService do
+  include MockApis::PostCodeChecker
+  include MockApis::Weather
   context 'when there is a problem before we make any calls' do
     it 'throws a fail if a nil is passed' do
       pcaws = described_class.new.process(nil)
@@ -54,6 +56,16 @@ RSpec.describe PostCodeAndWeatherService do
       allow(ws).to receive(:forecast).with('weather_api_key', 'SW1H 0BD').and_return('FAIL')
       pcaws = described_class.new.process('SW1H 0BD')
       expect(pcaws).to eq('FAIL:WEATHER_SERVICE_NOT_AVAILABLE')
+    end
+  end
+
+  context 'when end-to-end test' do
+    it 'can run end-to-end' do
+      ENV['WEATHER_API_KEY'] = 'weather_api_key'
+      return_successful_check('RH28HR')
+      return_successful_weather('weather_api_key', 'RH2 8HR')
+      pcaws = described_class.new.process('RH28HR')
+      expect(pcaws).to eq('5.0')
     end
   end
 end
