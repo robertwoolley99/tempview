@@ -25,5 +25,11 @@ RSpec.describe WeatherService do
       output = described_class.new.forecast('1234', 'RH2 8HR')
       expect(output).to eq('FAIL')
     end
+
+    it 'the server is up but there is another problem' do
+      weather_server_up_but_broken('1234', 'RH2 8HR')
+      output = described_class.new.forecast('1234', 'RH2 8HR')
+      expect(output).to eq('FAIL')
+    end
   end
 end

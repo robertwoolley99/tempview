@@ -26,6 +26,7 @@ module MockApis
       )
     end
   end
+
   module Weather
     def return_successful_weather(api_key, postcode)
       WebMock.stub_request(:get, "#{WEATHER_URL}key=#{api_key}&q=#{postcode}").to_return(
@@ -35,8 +36,15 @@ module MockApis
       )
     end
 
-    def weather_server_down(api_key,postcode)
+    def weather_server_down(api_key, postcode)
       WebMock.stub_request(:get, "#{WEATHER_URL}key=#{api_key}&q=#{postcode}").to_timeout
+    end
+
+    def weather_server_up_but_broken(api_key, postcode)
+      WebMock.stub_request(:get, "#{WEATHER_URL}key=#{api_key}&q=#{postcode}").to_return(
+        { status: 500,
+          headers: {} }
+      )
     end
   end
 end

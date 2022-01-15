@@ -10,7 +10,9 @@ class WeatherService
     rescue StandardError
       return 'FAIL'
     end
-    process_valid_response(response.body)
+    return process_valid_response(response.body) if response.status == 200
+
+    'FAIL'
   end
 
   private
