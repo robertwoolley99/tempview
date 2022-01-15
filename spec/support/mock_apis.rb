@@ -10,5 +10,11 @@ module MockApis
           headers: {} }
       )
     end
+
+    def return_failed_postcode(id)
+      WebMock.stub_request(:get, "#{POSTCODECHECKURL}/#{id}").to_return(
+        { status: 404 }
+      )
+    end
   end
 end
