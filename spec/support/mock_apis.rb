@@ -34,5 +34,9 @@ module MockApis
           headers: {} }
       )
     end
+
+    def weather_server_down(api_key,postcode)
+      WebMock.stub_request(:get, "#{WEATHER_URL}key=#{api_key}&q=#{postcode}").to_timeout
+    end
   end
 end

@@ -18,4 +18,12 @@ RSpec.describe WeatherService do
       expect(output).to eq('5.0')
     end
   end
+
+  context 'when there is a problem' do
+    it 'cannot connect to the server' do
+      weather_server_down('1234', 'RH2 8HR')
+      output = described_class.new.forecast('1234', 'RH2 8HR')
+      expect(output).to eq('FAIL')
+    end
+  end
 end

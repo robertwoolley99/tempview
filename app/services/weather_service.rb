@@ -5,7 +5,11 @@ require 'faraday/net_http'
 class WeatherService
   def forecast(api_key, postcode)
     Faraday.default_adapter = :net_http
-    response = Faraday.get("#{WEATHER_URL}key=#{api_key}&q=#{postcode}")
+    begin
+      response = Faraday.get("#{WEATHER_URL}key=#{api_key}&q=#{postcode}")
+    rescue StandardError
+      return 'FAIL'
+    end
     process_valid_response(response.body)
   end
 
