@@ -59,12 +59,12 @@ RSpec.describe PostCodeAndWeatherService do
     end
   end
 
-  context 'when end-to-end test' do
+  context 'when end-to-end test using MockApis' do
     it 'can run end-to-end' do
       ENV['WEATHER_API_KEY'] = 'weather_api_key'
       return_successful_check('RH28HR')
       return_successful_weather('weather_api_key', 'RH2 8HR')
-      pcaws = described_class.new.process('RH28HR')
+      pcaws = described_class.new.process('RH2       8HR')
       expect(pcaws).to eq('5.0')
     end
   end
