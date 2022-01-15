@@ -2,9 +2,8 @@
 
 require 'spec_helper'
 
-include MockApis::PostCodeChecker
-
 RSpec.describe PostCodeCheckerService do
+  include MockApis::PostCodeChecker
   context 'Correct requests' do
     it 'calls the correct URL' do
       return_successful_check('RH2 8HR')
