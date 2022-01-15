@@ -25,7 +25,6 @@ class PostCodeCheckerService
 
   def process_valid_response(response)
     response_hash = JSON.parse(response.body)
-    result_hash = response_hash['result']
-    result_hash['postcode']
+    response_hash.dig 'result', 'postcode'
   end
 end
