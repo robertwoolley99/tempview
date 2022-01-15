@@ -18,7 +18,7 @@ RSpec.describe PostCodeAndWeatherService do
 
   context 'when we have an issue with the postcode checker' do
     let(:pccs) { instance_double PostCodeCheckerService }
-    let(:ws) { instance_double WeatherService }
+    let(:ws) { instance_spy WeatherService }
 
     before { ENV['WEATHER_API_KEY'] = 'weather_api_key' }
 
@@ -33,8 +33,8 @@ RSpec.describe PostCodeAndWeatherService do
       allow(PostCodeCheckerService).to receive(:new).and_return(pccs)
       allow(pccs).to receive(:check).and_return('NOT_CHECKED')
       allow(WeatherService).to receive(:new).and_return(ws)
-      expect(ws).to receive(:forecast).with('weather_api_key', 'SW1H 0BD')
       described_class.new.process('SW1H 0BD')
+      expect(ws).to have_received(:forecast).with('weather_api_key', 'SW1H 0BD')
     end
   end
 end
