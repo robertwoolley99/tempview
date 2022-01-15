@@ -98,6 +98,10 @@ GEM
     digest (3.1.0)
     docile (1.4.0)
     erubi (1.10.0)
+    faraday (2.0.1)
+      faraday-net_http (~> 2.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (2.0.1)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashdiff (1.0.1)
@@ -220,6 +224,7 @@ GEM
     rubocop-rspec (2.7.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.1.0)
       childprocess (>= 0.5, < 5.0)
@@ -278,6 +283,7 @@ DEPENDENCIES
   capybara
   database_cleaner-active_record
   debug
+  faraday
   importmap-rails
   jbuilder
   puma (~> 5.0)
