@@ -50,7 +50,7 @@ RSpec.describe Temperature do
         expect(output).to eq('It is currently hot at RH2 8HR.')
       end
 
-      it 'returns hot when the temperature is above the max_temp' do
+      it 'returns warm when the temperature is equal to the min temp' do
         allow(pcaws_id).to receive(:process).and_return({ status: 'ok', postcode: 'RH2 8HR', temp: '20.0' })
         output = described_class.last.current_temp('RH2 8HR')
         expect(output).to eq('It is currently warm at RH2 8HR.')
