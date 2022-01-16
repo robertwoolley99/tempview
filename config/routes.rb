@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get '/', to: 'temperatures#index'
-  resources :temperatures
+  resources :temperatures, except: %i[show edit destroy]
 end
