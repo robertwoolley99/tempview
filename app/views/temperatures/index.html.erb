@@ -1,9 +1,18 @@
 <br>
 
-<h1>Temperature Settings</h1>
+<h1>Hot, Warm or Cold?</h1>
 
 <br>
 Current settings are:<br>
 Hot: Any temperature above <%= @temperature.max_temp %> degrees centigrade.<br>
 Warm: Any temperature in the range <%= @temperature.temperature_range? %> degrees centigrade.<br>
 Cold: Any temprature below <%= @temperature.min_temp %> degrees centigrade.<br><br><br>
+<h2> Temperature Settings</h2>
+<%= form_with model: @temperature do | form | %>
+<%= form.number_field :min_temp %>
+<%= form.number_field :max_temp %>
+<%= form.submit%>
+<% end %>
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
