@@ -32,6 +32,7 @@ right now. Please try again later."
     temp = temp_as_text.to_f
     return 'cold' if temp < min_temp
     return 'hot' if temp > max_temp
+
     'warm'
   end
 end
