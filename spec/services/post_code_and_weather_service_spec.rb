@@ -8,13 +8,13 @@ RSpec.describe PostCodeAndWeatherService do
   context 'when there is a problem before we make any calls' do
     it 'throws a fail if a nil is passed' do
       pcaws = described_class.new.process(nil)
-      expect(pcaws).to eq('FAIL:NIL')
+      expect(pcaws).to eq({ status: 'fail_nil_postcode', postcode: nil, temp: nil })
     end
 
     it 'throws a fail if there is no API key set' do
       ENV.delete('WEATHER_API_KEY')
       pcaws = described_class.new.process('RH2 8HR')
-      expect(pcaws).to eq('FAIL:NO_API_KEY')
+      expect(pcaws).to eq({ status: 'fail_no_api', postcode: 'RH2 8HR', temp: nil })
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe PostCodeAndWeatherService do
     it 'returns an error if the postcode does not exist' do
       allow(pccs).to receive(:check).and_return('NOT_VALID')
       pcaws = described_class.new.process('POSTCODE_NOT_EXISTING')
-      expect(pcaws).to eq('ERROR:POSTCODE_NOT_VALID')
+      expect(pcaws).to eq({ status: 'invalid_postcode', postcode: 'POSTCODE_NOT_EXISTING', temp: nil })
     end
 
     it 'uses the unvalidated postcode if the postcode checker is down' do
@@ -55,7 +55,7 @@ RSpec.describe PostCodeAndWeatherService do
     it 'weather service has failed' do
       allow(ws).to receive(:forecast).with('weather_api_key', 'SW1H 0BD').and_return('FAIL')
       pcaws = described_class.new.process('SW1H 0BD')
-      expect(pcaws).to eq('FAIL:WEATHER_SERVICE_NOT_AVAILABLE')
+      expect(pcaws).to eq({ status: 'fail_weather', postcode: 'SW1H 0BD', temp: nil })
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe PostCodeAndWeatherService do
       return_successful_check('RH28HR')
       return_successful_weather('weather_api_key', 'RH2 8HR')
       pcaws = described_class.new.process('RH2       8HR')
-      expect(pcaws).to eq('5.0')
+      expect(pcaws).to eq({ status: 'ok', postcode: 'RH2 8HR', temp: '5.0' })
     end
   end
 end
