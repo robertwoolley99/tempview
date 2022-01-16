@@ -65,7 +65,7 @@ RSpec.describe PostCodeAndWeatherService do
       return_successful_check('RH28HR')
       return_successful_weather('weather_api_key', 'RH2 8HR')
       pcaws = described_class.new.process('RH2       8HR')
-      expect(pcaws).to eq({ status: 'ok', postcode: 'RH2 8HR', temp: '5.0' })
+      expect(pcaws).to eq({ status: 'ok', postcode: 'RH2 8HR', temp: 5.0 })
     end
   end
 end

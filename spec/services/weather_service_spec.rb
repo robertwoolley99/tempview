@@ -15,7 +15,7 @@ RSpec.describe WeatherService do
     it 'returns the correct temperature' do
       return_successful_weather('1234', 'RH2 8HR')
       output = described_class.new.forecast('1234', 'RH2 8HR')
-      expect(output).to eq('5.0')
+      expect(output).to eq(5.0)
     end
   end
 

@@ -19,7 +19,6 @@ class WeatherService
 
   def process_valid_response(body)
     response_hash = JSON.parse(body)
-    temp_as_float = response_hash.dig 'current', 'temp_c'
-    format('%.1f', temp_as_float)
+    response_hash.dig 'current', 'temp_c'
   end
 end
