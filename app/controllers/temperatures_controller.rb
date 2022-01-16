@@ -4,6 +4,16 @@
 class TemperaturesController < ApplicationController
   def index
     @temperature = Temperature.find(1)
+    @temperature2 = Temperature.new
+  end
+
+  def new; end
+
+  def create
+    @temperature = Temperature.find(1)
+    output = @temperature.current_temp(params[:temperature][:postcode])
+    flash[:hwc_notice] = output
+    redirect_back(fallback_location: '/')
   end
 
   def update
@@ -12,7 +22,7 @@ class TemperaturesController < ApplicationController
     @float_hash_params = params_hash.transform_values(&:to_f)
     complete_update and return if @float_hash_params['max_temp'] > @float_hash_params['min_temp']
 
-    flash[:temp_notice] = 'The minimum temperature must be less than the maximum temperature.'
+    flash[:temp_notice] = 'The minimum temperature must be less than the maximum temperature. Please try again.'
     redirect_back(fallback_location: '/')
   end
 
