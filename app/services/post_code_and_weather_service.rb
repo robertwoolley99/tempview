@@ -26,8 +26,8 @@ class PostCodeAndWeatherService
 
   def get_weather(postcode)
     weather = WeatherService.new.forecast(@api_key, postcode)
-    return { status: 'fail_weather', postcode: 'SW1H 0BD', temp: nil } if weather == 'FAIL'
+    return { status: 'fail_weather', postcode: postcode, temp: nil } if weather == 'FAIL'
 
-    weather
+    { status: 'ok', postcode: postcode, temp: weather }
   end
 end

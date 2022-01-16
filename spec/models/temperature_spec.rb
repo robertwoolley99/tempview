@@ -26,6 +26,22 @@ RSpec.describe Temperature do
         output = described_class.new.current_temp('SW1H0BD')
         expect(output).to eq("Sorry - we have a fault and can't get the weather for SW1H 0BD right now. Please try again later.")
       end
+
+      context 'when PCAWS returns correct information ' do
+        let(:pcaws_id) { instance_double PostCodeAndWeatherService }
+
+        before do
+          temp = described_class.new
+          temp.min_temp = 20.0
+          temp.max_temp = 25.0
+          temp.save
+          allow(PostCodeAndWeatherService).to receive(:new).and_return(pcaws_id)
+        end
+
+        it 'returns cold when the temperature is below the min_temp' do
+          allow(pcaws_id).to receive(:process).and_return({ status: 'fail_no_api', postcode: 'SW1H 0BD', temp: nil })
+        end
+      end
     end
   end
 end
