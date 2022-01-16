@@ -1,0 +1,9 @@
+<br>
+
+<h1>Temperature Settings</h1>
+
+<br>
+Current settings are:<br>
+Hot: Any temperature above <%= @temperature.max_temp %> degrees centigrade.<br>
+Warm: Any temperature in the range <%= @temperature.temperature_range? %> degrees centigrade.<br>
+Cold: Any temprature below <%= @temperature.min_temp %> degrees centigrade.<br><br><br>

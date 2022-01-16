@@ -9,6 +9,10 @@ class Temperature < ApplicationRecord
     process_pcaws_pass(pcaws_output)
   end
 
+  def temperature_range?
+    "#{min_temp} - #{max_temp}"
+  end
+
   private
 
   def process_pcaws_fail(pcaws_output, postcode)
