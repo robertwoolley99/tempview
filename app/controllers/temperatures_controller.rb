@@ -4,7 +4,6 @@
 class TemperaturesController < ApplicationController
   def index
     @temperature = Temperature.find(1)
-    @temperature2 = Temperature.new
   end
 
   def new; end
