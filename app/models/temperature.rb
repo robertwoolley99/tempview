@@ -2,6 +2,8 @@
 
 # Model to keep temperatures
 class Temperature < ApplicationRecord
+  validates :min_temp, :max_temp, numericality: true
+
   def current_temp(postcode)
     pcaws_output = PostCodeAndWeatherService.new.process(postcode)
     return process_pcaws_fail(pcaws_output, postcode) unless pcaws_output[:status] == 'ok'
@@ -9,17 +11,22 @@ class Temperature < ApplicationRecord
     process_pcaws_pass(pcaws_output)
   end
 
+  def temperature_range?
+    "#{min_temp} - #{max_temp}"
+  end
+
   private
 
   def process_pcaws_fail(pcaws_output, postcode)
     case pcaws_output[:status]
+    when 'fail_nil_postcode'
+      'Postcode is blank. Please enter a valid UK postcode.'
     when 'invalid_postcode'
-      "Sorry - #{postcode} doesn't appear to be a valid UK postcode. Please try again."
+      "Sorry - #{postcode} doesn't appear to be a valid UK postcode. Please try again with a valid UK postcode."
     when 'fail_weather'
       "Sorry - we can't get the weather for #{pcaws_output[:postcode]} right now. Please try again later."
     when 'fail_no_api'
-      "Sorry - we have a fault and can't get the weather for #{pcaws_output[:postcode]} \
-right now. Please try again later."
+      "Sorry - we have a fault and can't get the weather for #{pcaws_output[:postcode]} now. Please try again later."
     end
   end
 

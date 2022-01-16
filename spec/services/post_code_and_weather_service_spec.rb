@@ -11,6 +11,11 @@ RSpec.describe PostCodeAndWeatherService do
       expect(pcaws).to eq({ status: 'fail_nil_postcode', postcode: nil, temp: nil })
     end
 
+    it 'throws a fail if the postcode is blank' do
+      pcaws = described_class.new.process('    ')
+      expect(pcaws).to eq({ status: 'fail_nil_postcode', postcode: '    ', temp: nil })
+    end
+
     it 'throws a fail if there is no API key set' do
       ENV.delete('WEATHER_API_KEY')
       pcaws = described_class.new.process('RH2 8HR')
@@ -65,7 +70,7 @@ RSpec.describe PostCodeAndWeatherService do
       return_successful_check('RH28HR')
       return_successful_weather('weather_api_key', 'RH2 8HR')
       pcaws = described_class.new.process('RH2       8HR')
-      expect(pcaws).to eq({ status: 'ok', postcode: 'RH2 8HR', temp: '5.0' })
+      expect(pcaws).to eq({ status: 'ok', postcode: 'RH2 8HR', temp: 5.0 })
     end
   end
 end

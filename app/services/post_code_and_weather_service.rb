@@ -3,7 +3,7 @@
 # Class which takes a call from the model and manages postcode checker and weather
 class PostCodeAndWeatherService
   def process(postcode)
-    return { status: 'fail_nil_postcode', postcode: postcode, temp: nil } if postcode.nil?
+    return { status: 'fail_nil_postcode', postcode: postcode, temp: nil } if postcode.blank?
 
     @api_key = ENV['WEATHER_API_KEY']
     return { status: 'fail_no_api', postcode: postcode, temp: nil } if @api_key.nil?

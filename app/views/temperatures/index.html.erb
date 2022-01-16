@@ -1,0 +1,25 @@
+<center><h1>Hot, Warm or Cold?</h1>
+
+<br>
+Current settings are:<br>
+Hot: Any temperature above <%= @temperature.max_temp %> degrees centigrade.<br>
+Warm: Any temperature in the range <%= @temperature.temperature_range? %> degrees centigrade.<br>
+Cold: Any temperature below <%= @temperature.min_temp %> degrees centigrade.<br><br><br>
+<h2> Temperature Settings</h2>
+<%= form_with model: @temperature do | form | %>
+Minimum Temperature: <%= form.number_field :min_temp, step: 0.1 %> <br>
+Maximum Temperature: <%= form.number_field :max_temp, step: 0.1 %> <br>
+<%= form.submit 'Update Maximum and Minimum Temperatures'%>
+<% end %>
+<% if flash[:temp_notice] %>
+  <div class="notice"><%= flash[:temp_notice] %></div>
+<% end %>
+<br><br>
+<h2> Find out if it is hot, warm or cold locally </h2>
+<%= form_with model: Temperature.new do | form | %>
+Enter Postcode: <%= form.text_field :postcode %> <br>
+<%= form.submit 'Hot, Warm or Cold?'%>
+<% end %>
+<% if flash[:hwc_notice] %>
+  <div class="notice"><%= flash[:hwc_notice] %></div>
+<% end %>
