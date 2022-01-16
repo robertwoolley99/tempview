@@ -15,7 +15,7 @@ RSpec.describe Temperature do
     end
 
     context 'when PCAWS returns errors correct text returned' do
-      let(:pcaws_id) { instance_double PostCodeAndWeatherService}
+      let(:pcaws_id) { instance_double PostCodeAndWeatherService }
 
       before { allow(PostCodeAndWeatherService).to receive(:new).and_return(pcaws_id) }
 
@@ -23,7 +23,12 @@ RSpec.describe Temperature do
         allow(pcaws_id).to receive(:process).and_return({ status: 'invalid_postcode', postcode: 'BOGUS', temp: nil })
         output = described_class.new.current_temp('BOGUS_POSTCODE')
         expect(output).to eq("Sorry - that doesn't appear to be a valid UK postcode. Please try again.")
+      end
 
+      it 'returns warning when the weather service is down.' do
+        allow(pcaws_id).to receive(:process).and_return({ status: 'invalid_postcode', postcode: 'BOGUS', temp: nil })
+        output = described_class.new.current_temp('SW1H 0BD')
+        expect(output).to eq("Sorry - we can't get the weather for SW1H 0BD right now. Please try again later.")
       end
     end
   end
