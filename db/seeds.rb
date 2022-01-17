@@ -7,24 +7,8 @@
 # It will be single row table for Temperature - we will set the range slightly differently between environments
 # This will help us with testing.
 
-# Exit if database already exists
-begin
-  ActiveRecord::Base.connection
-rescue ActiveRecord::NoDatabaseError
-  Rails.logger.debug 'Database does not exist - ok to seed it'
-else
-  Rails.logger.debug 'Database already exists. Exiting to prevent breaking it'
-end
-
 temp = Temperature.new
-
-case ENV['RAILS_ENV']
-when 'test'
-  temp.min_temp = 0
-  temp.max_temp = 25
-  temp.save
-when 'development'
-  temp.min_temp = 20
-  temp.max_temp = 30
-  temp.save
-end
+temp.id = 1
+temp.min_temp = 20
+temp.max_temp = 30
+temp.save
