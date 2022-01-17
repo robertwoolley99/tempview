@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   scope '/' do
     post '/weather' => 'temperatures#weather', as: :weather
   end
-  resources :temperatures, except: %i[show edit destroy]
+  resources :temperatures, only: %i[update index]
 end
