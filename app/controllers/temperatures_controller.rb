@@ -6,11 +6,9 @@ class TemperaturesController < ApplicationController
     @temperature = Temperature.find(1)
   end
 
-  def new; end
-
-  def create
+  def weather
     @temperature = Temperature.find(1)
-    output = @temperature.current_temp(params[:temperature][:postcode])
+    output = @temperature.current_temp(params[:postcode])
     flash[:hwc_notice] = output
     redirect_back(fallback_location: '/')
   end
@@ -32,6 +30,7 @@ class TemperaturesController < ApplicationController
     @temperature.with_lock do
       @temperature.update(max_temp: @float_hash_params['max_temp'], min_temp: @float_hash_params['min_temp'])
     end
+    flash[:temp_notice] = 'Update completed.'
     redirect_back(fallback_location: '/')
   end
 end
