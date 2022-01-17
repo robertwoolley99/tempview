@@ -13,17 +13,24 @@ RSpec.describe 'Temperature Range', type: :feature do
     end
 
     it 'updates max temp correctly' do
-      visit '/'
+      visit root_path
       fill_in 'temperature_max_temp', with: 30.0
       click_button('Update Maximum and Minimum Temperatures')
       expect(page).to have_field('temperature_max_temp', with: '30.0')
     end
 
     it 'updates min temp correctly' do
-      visit '/'
+      visit root_path
       fill_in 'temperature_min_temp', with: -10.0
       click_button('Update Maximum and Minimum Temperatures')
       expect(page).to have_field('temperature_min_temp', with: '-10.0')
+    end
+
+    it 'tells us updates worked ok' do
+      visit root_path
+      fill_in 'temperature_min_temp', with: -10.0
+      click_button('Update Maximum and Minimum Temperatures')
+      expect(page).to have_content('Update completed.')
     end
   end
 end
