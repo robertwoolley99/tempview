@@ -16,7 +16,7 @@ Maximum Temperature: <%= form.number_field :max_temp, step: 0.1 %> <br>
 <% end %>
 <br><br>
 <h2> Find out if it is hot, warm or cold locally </h2>
-<%= form_with model: Temperature.new do | form | %>
+<%= form_with url: '/weather', method: :post do | form | %>
 Enter Postcode: <%= form.text_field :postcode %> <br>
 <%= form.submit 'Hot, Warm or Cold?'%>
 <% end %>

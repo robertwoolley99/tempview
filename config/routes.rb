@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get '/', to: 'temperatures#index'
+  root 'temperatures#index'
+
+  scope '/' do
+    post '/weather' => 'temperatures#weather', as: :weather
+  end
   resources :temperatures, except: %i[show edit destroy]
 end
