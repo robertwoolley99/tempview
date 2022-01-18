@@ -14,9 +14,9 @@ iii) Now install the gems with `bundle install`
 
 iv) Install, migrate and seed the database with `rails db:setup`
 
-iv) Then in a terminal add your WeatherAPI key with `export WEATHER_API_KEY=`
+v) Then in a terminal add your WeatherAPI key with `export WEATHER_API_KEY=`
 
-v) Start the server (in development mode) with `rail s` 
+vi) Start the server (in development mode) with `rail s` 
 
 Navigate to http://localhost:3000
 
@@ -31,7 +31,7 @@ If the postcode isn't valid then Tempview will tell the user and ask for a corre
 
 
 ## Tests
-To run tests, run rspec in the tempview root directory.  There are two sets of tests:
+To run tests, run `rspec` in the tempview root directory.  There are two sets of tests:
 
 a) Unit Tests - these cover the key services of `weather_service, post_code_checker_service, post_code_and_weather_service` as well as the model for `temperature`.
 
