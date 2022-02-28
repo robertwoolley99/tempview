@@ -3,7 +3,7 @@
 # Tempview
 
 ## Requirements:
-Runs in Ruby version 3.1.0 on Rails 7.0.1
+Runs in Ruby version 3.1.1 on Rails 7.0.2.2
 ## Installation
 
 i) Clone this repo with `git clone https://github.com/robertwoolley99/tempview.git`
