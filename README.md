@@ -8,7 +8,7 @@ Runs in Ruby version 3.1.1 on Rails 7.0.2.2
 
 i) Clone this repo with `git clone https://github.com/robertwoolley99/tempview.git`
 
-ii) Ensure you have Ruby 3.1.0 installed; then in rvm `rvm use 3.1.0`
+ii) Ensure you have Ruby 3.1.1 installed; then in rvm `rvm use 3.1.1`
 
 iii) Now install the gems with `bundle install`
 
